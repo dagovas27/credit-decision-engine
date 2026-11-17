@@ -30,7 +30,7 @@
 | Silver | `silver.loan_status_history` | SCD Type 2 sobre morosidad, servicer y modificaciones |
 | Silver | `silver.dq_quarantine` | Registros que fallan validaciones |
 | Gold | `gold.loan_features` | Feature table en Unity Catalog, llave `loan_id`, solo información disponible al originar |
-| Gold | `gold.default_labels` | 90+ días de mora dentro de los 24 meses desde originación |
+| Gold | `gold.default_labels` | Default si, dentro de 24 meses desde el primer pago, lo primero que ocurre es estado ≥ 03, `RA` o código de cierre 02, 03, 09 o 15; un prepago previo cuenta como no default (ADR 0001) |
 | Gold | `gold.vintage_performance` | Curvas de default por cosecha |
 | Decisión | `gold.credit_decisions` | Decisión, PD, beneficio esperado, versión del modelo |
 
@@ -43,6 +43,8 @@
 - Métrica de negocio: beneficio total del motor frente a la regla base "aprobar si FICO ≥ X".
 
 **Stack:** Databricks (Unity Catalog, Auto Loader, Lakeflow Declarative Pipelines, MLflow, Lakehouse Monitoring, Workflows), Databricks Asset Bundles, Python, pytest, GitHub Actions. Antes de usar una función de Databricks, confirma que el plan del workspace la incluye.
+
+**Workspace:** Databricks Free Edition. Solo cómputo serverless (sin clusters propios), un SQL warehouse 2X-Small, un pipeline de Lakeflow activo por tipo, máximo 5 tareas de job concurrentes, sin ubicaciones de almacenamiento propias y una cuota diaria de uso que apaga el cómputo si se supera. La consola no admite control automatizado del navegador: el trabajo con Databricks se hace por CLI y bundle.
 
 ## Estructura del repositorio
 
