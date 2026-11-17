@@ -40,5 +40,11 @@ history of pull requests shows how the project was built and why each decision w
   so the pull request title must be a valid Conventional Commit.
 - Week 8 CI must run tests on every pull request to `develop`, and deploy the bundle on
   merges to `develop` (target `dev`) and on the `v1.0.0` release to `main`.
-- Branch protection rules on GitHub (require a pull request, block force push) would enforce
-  points 3–5; they are optional and can be enabled by the owner.
+- Points 3–5 are enforced by the GitHub ruleset `protect-main-and-develop` (added
+  2026-11-17), which targets `main` and `develop` and has an empty bypass list:
+  - changes require a pull request (no approvals required, since there is a single
+    maintainer);
+  - force pushes are blocked;
+  - the branches cannot be deleted.
+  Because nobody can bypass it, the final release to `main` is also a pull request from
+  `develop`.

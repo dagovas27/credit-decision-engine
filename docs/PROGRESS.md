@@ -55,6 +55,8 @@ deployed an empty job.
 - **Git workflow** (ADR 0002): `develop` created from `main`; all new work goes in
   `feature/`, `fix/`, `test/`, `docs/` or `chore/` branches with a pull request to
   `develop`, squash-merged by the owner. `main` only receives the final `v1.0.0`.
+  Enforced on GitHub by the ruleset `protect-main-and-develop` (PR required, no force push,
+  no deletion, no bypass).
 
 ## Open questions
 
