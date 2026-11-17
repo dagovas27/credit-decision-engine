@@ -23,8 +23,8 @@
 ## Decisions
 
 - **Data location:** raw files live outside the repo at `~/Documents/data/freddie_mac/`
-  (`CLAUDE.md` still says `~/data/freddie_mac/`). `.gitignore` blocks data folders and
-  every Freddie Mac file pattern.
+  (path corrected in `CLAUDE.md`). `.gitignore` blocks data folders and every Freddie Mac
+  file pattern.
 - **Vintage = origination year**, taken from the loan identifier (`PYYQnXXXXXXX`), not from
   the first payment date (~16% of loans have their first payment in the following year).
 - **Performance cut-off = 2026-06** (last `Period` in every performance file). A loan has a

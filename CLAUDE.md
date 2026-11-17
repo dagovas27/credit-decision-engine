@@ -2,14 +2,14 @@
 
 ## Contexto
 
-- **Dueño:** Daniel Enrique Vásquez González, estudiante de Ingeniería en Ciencia de Datos (UPB, Medellín), con Minor en Métodos Cuantitativos y Simulación Financiera.
+- **Dueño:** Daniel Enrique Vásquez González, estudiante de Ingeniería en Inteligencia Artificial y Ciencia de Datos (UPB, Medellín).
 - **Propósito:** proyecto de portafolio MLOps / Data Engineering orientado a fintech europeas y a la práctica profesional de 2027.
 - **Qué hace:** predice la probabilidad de default (PD) de cada préstamo hipotecario y decide aprobar o rechazar maximizando el beneficio esperado bajo un límite de pérdida, sobre una arquitectura Medallion en Databricks.
 - **Ventana:** 16 nov 2026 – 15 ene 2027 (8.5 semanas). Semanas 6 y 7 (Navidad, Año Nuevo) van a media carga.
 
 ## Datos
 
-- **Ubicación local (fuera del repo):** `~/data/freddie_mac/`
+- **Ubicación local (fuera del repo):** `~/Documents/data/freddie_mac/`
 - **Contenido:** carpetas `sample_2005` … `sample_2026` (Freddie Mac Single-Family Loan-Level Dataset, archivos de muestra), más `file_layout_july_2026.xlsx` y `user_guide.pdf`.
 - Cada carpeta debería traer un archivo de originación y uno de desempeño mensual (servicing). **Verifica los nombres reales** antes de asumirlos.
 - Los archivos vienen **sin encabezados y separados por `|`**. El esquema sale de `file_layout_july_2026.xlsx`; contrasta siempre el número de columnas real con el layout.
