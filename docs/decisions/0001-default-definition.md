@@ -67,6 +67,14 @@ non-default, even if the prepayment happens before month 24.
   profit layer must account for the shorter life of those loans.
 - The label depends on the performance cut-off date; any new data release must recompute
   eligibility.
-- COVID-era forbearance (vintages 2019–2021) can trigger the `>= 03` rule for borrowers who
-  later cure without loss. How to treat those cases is an open question for week 4 (see
-  `docs/PROGRESS.md`); this ADR does not change the rule for them yet.
+- COVID-era forbearance (vintages 2018–2021) can trigger the `>= 03` rule for borrowers who
+  later cure without loss.
+
+## Amendment — 2026-11-17
+
+For week 4, the **primary label is the forbearance-adjusted label**: a DQ90 event flagged
+as forbearance (`F` in Borrower Assistance Plan) or disaster delinquency (`Y` in
+Delinquency Due to Disaster) at the event month does not count as a default unless the
+loan later reaches `RA` or a credit-event zero-balance code (`02`, `03`, `09`, `15`). The
+**original rule above is kept as a sensitivity label** and is reported alongside it. The
+exact rules for the adjusted label are written in week 4.

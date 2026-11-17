@@ -30,7 +30,7 @@
 | Silver | `silver.loan_status_history` | SCD Type 2 sobre morosidad, servicer y modificaciones |
 | Silver | `silver.dq_quarantine` | Registros que fallan validaciones |
 | Gold | `gold.loan_features` | Feature table en Unity Catalog, llave `loan_id`, solo información disponible al originar |
-| Gold | `gold.default_labels` | Default si, dentro de 24 meses desde el primer pago, lo primero que ocurre es estado ≥ 03, `RA` o código de cierre 02, 03, 09 o 15; un prepago previo cuenta como no default (ADR 0001) |
+| Gold | `gold.default_labels` | Default si, dentro de 24 meses desde el primer pago, lo primero que ocurre es estado ≥ 03, `RA` o código de cierre 02, 03, 09 o 15; un prepago previo cuenta como no default (ADR 0001). Etiqueta principal: ajustada por forbearance/desastre; la original queda como sensibilidad |
 | Gold | `gold.vintage_performance` | Curvas de default por cosecha |
 | Decisión | `gold.credit_decisions` | Decisión, PD, beneficio esperado, versión del modelo |
 
