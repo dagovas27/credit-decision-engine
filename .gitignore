@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------
+# Raw data: Freddie Mac terms forbid redistribution. Never commit it.
+# ---------------------------------------------------------------------------
+data/
+datasets/
+landing/
+freddie_mac/
+sample_*/
+sample_orig_*.txt
+sample_perf_*.txt
+orig_*.txt
+perf_*.txt
+historical_data*
+*.zip
+file_layout_*.xlsx
+user_guide.pdf
+*.parquet
+*.delta
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Databricks
+.databricks/
+.bundle/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Secrets and local config
+.env
+.env.*
+*.pem
+.databrickscfg
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

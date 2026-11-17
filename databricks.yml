@@ -1,0 +1,19 @@
+# Databricks Asset Bundle for the credit decision engine.
+# Authentication is configured outside the repo (databricks auth login / ~/.databrickscfg).
+# Never put hosts with tokens or credentials in this file.
+bundle:
+  name: credit-decision-engine
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog catalog that holds the bronze/silver/gold/ml schemas.
+    default: credit
+
+targets:
+  dev:
+    mode: development
+    default: true
+    # workspace.host is taken from the local Databricks CLI profile.
