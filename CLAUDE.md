@@ -83,8 +83,18 @@ credit-decision-engine/
 - **Una semana del roadmap a la vez.** No adelantes trabajo de semanas futuras sin preguntarme.
 - **Lógica en `src/`**, probada con pytest. Los notebooks son para explorar.
 - **Commits pequeños** con Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, `chore:`). Corre los tests antes de cada commit.
-- **Pregúntame antes de:** hacer push, desplegar o subir algo a Databricks, borrar archivos o tablas, o instalar dependencias nuevas que no estén en este documento.
+- **Pregúntame antes de:** desplegar o subir algo a Databricks, borrar archivos o tablas, o instalar dependencias nuevas que no estén en este documento. El push de ramas de trabajo y la apertura de PR son parte del flujo de "Git workflow" y no requieren preguntar; fusionar sí es decisión mía.
 - **Credenciales:** la autenticación de Databricks y GitHub la hago yo. Nunca pidas, escribas ni guardes tokens en el código o en el chat.
+
+## Git workflow
+
+Estrategia descrita en `docs/decisions/0002-git-branching-strategy.md`.
+
+- **Ramas permanentes:** `main` y `develop`. `main` solo recibe la versión final, con tag `v1.0.0`. `develop` integra el trabajo terminado.
+- **Ramas de trabajo:** todo trabajo nuevo va en una rama creada desde `develop` actualizado (`git switch develop && git pull`), con prefijo `feature/`, `fix/`, `test/`, `docs/` o `chore/` y un nombre descriptivo (por ejemplo `feature/bronze-autoloader`).
+- **Al terminar una tarea:** corre los tests, haz push de la rama y abre un pull request hacia `develop` con `gh pr create`, con un resumen de qué cambió y por qué. Avísame cuando esté listo.
+- **Fusionar:** lo decido yo, siempre con **squash merge**. Después de que yo fusione, borra la rama local y remota y actualiza `develop`.
+- **Prohibido:** commits directos en `develop` o `main`, y force push a cualquiera de las dos.
 - **Si algo del plan no es viable** (por ejemplo, una limitación del workspace), detente, explícame por qué y propón alternativas antes de seguir.
 - **Explícame las decisiones de diseño en 2–3 frases.** Soy estudiante y quiero entender el porqué, no solo tener el código.
 

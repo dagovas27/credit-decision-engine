@@ -52,6 +52,9 @@ deployed an empty job.
 - **Week 1 upload subset:** only 2005, 2006, 2007 and 2019 while the pipeline is built
   (crisis vintages + one test vintage, and stays well inside the free quota).
 - **Dependencies are added per week**: `pyproject.toml` starts with only `pytest` (dev).
+- **Git workflow** (ADR 0002): `develop` created from `main`; all new work goes in
+  `feature/`, `fix/`, `test/`, `docs/` or `chore/` branches with a pull request to
+  `develop`, squash-merged by the owner. `main` only receives the final `v1.0.0`.
 
 ## Open questions
 
