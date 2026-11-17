@@ -22,6 +22,23 @@ To reproduce:
    Each folder contains `sample_orig_YYYY.txt` and `sample_perf_YYYY.txt`
    (pipe-delimited, no header).
 
+## Databricks setup
+
+The project targets **Databricks Free Edition** (serverless only) and is deployed with a
+Databricks Asset Bundle.
+
+1. Install the [Databricks CLI](https://docs.databricks.com/aws/en/dev-tools/cli/install)
+   and authenticate: `databricks auth login --host <workspace-url>` (save it as the
+   `DEFAULT` profile).
+2. **Manual step, once:** create the catalog `credit` in the UI
+   (*Catalog* → *Create catalog*, storage: *Default Storage*). Free Edition does not allow
+   creating catalogs through the API or CLI.
+3. Create the schemas and the landing Volume: `scripts/setup_catalog.sh`
+4. Upload sample vintages: `scripts/upload_samples.sh 2005 2006 2007 2019`
+5. Deploy: `databricks bundle validate && databricks bundle deploy -t dev`
+
+Both scripts accept `DRY_RUN=1` to print the commands without running them.
+
 ## Development
 
 ```bash

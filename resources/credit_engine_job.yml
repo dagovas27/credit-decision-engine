@@ -1,0 +1,11 @@
+# Placeholder job for week 1: proves that the bundle deploys to the workspace.
+# Tasks (Bronze ingestion, Silver, Gold, training, decisions) are added week by week.
+# Free Edition is serverless only, so tasks must not define clusters.
+resources:
+  jobs:
+    credit_engine:
+      name: credit-engine
+      description: End-to-end credit decision engine workflow (empty until week 2).
+      max_concurrent_runs: 1
+      tags:
+        project: credit-decision-engine

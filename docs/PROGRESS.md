@@ -2,7 +2,7 @@
 
 ## Current status
 
-- **Week:** 1 of 8.5 (16–22 Nov 2026) — Foundations
+- **Week:** 1 of 8.5 (16–22 Nov 2026) — Foundations, **completed**; week 2 starts 23 Nov
 - **Last updated:** 2026-11-17
 
 ## Week 1 — Foundations
@@ -17,9 +17,14 @@
 | Default definition | Done — [ADR 0001](decisions/0001-default-definition.md) |
 | Scripts to create catalog/schemas/Volume and upload samples (`scripts/`) | Written, dry-run only |
 | Install the Databricks CLI and authenticate (user) | Done — CLI v1.26.0, profile `DEFAULT` |
-| Run `scripts/setup_catalog.sh` | **Blocked** — `catalogs create` fails on Free Edition (see below) |
-| Upload vintages 2005, 2006, 2007, 2019 (≈1.3 GB) | Pending — waits for the catalog decision |
-| Empty serverless job in `resources/` and first `databricks bundle deploy` | Pending |
+| Catalog `credit` | Done — created manually in the UI with Default Storage (documented in README) |
+| Schemas `bronze`, `silver`, `gold`, `ml` and Volume `credit.bronze.landing` | Done — `scripts/setup_catalog.sh` |
+| Upload vintages 2005, 2006, 2007, 2019 (≈1.3 GB) | Done — 8 files, sizes match local copies |
+| Empty job in `resources/`, `bundle validate`, `bundle deploy -t dev` | Done — job `[dev danivasgo2702] credit-engine` |
+| Push to GitHub | Done |
+
+**Week 1 done criterion: met** (2026-11-17). Files are in the `landing` Volume and the bundle
+deployed an empty job.
 
 ## Decisions
 
@@ -36,11 +41,11 @@
   storage locations, daily usage quota. The console does not support automated browser
   control, so all Databricks work goes through the CLI and the bundle.
   - Consequence: Bronze, Silver and Gold must live in **one** Lakeflow Declarative Pipeline.
-  - Catalog creation through the CLI/API fails: *"Metastore storage root URL does not
-    exist. Default Storage is enabled in your account. You can use the UI to create a new
-    catalog using Default Storage…"*. The metastore default catalog is `workspace`
-    (only `default` and `information_schema` schemas). Catalogs created in the UI exist,
-    so UI creation with Default Storage works.
+  - Catalog creation through the CLI/API fails (*"Metastore storage root URL does not
+    exist…"*), but UI creation with Default Storage works. **Decision:** keep the catalog
+    `credit`, created once by hand in the UI; `scripts/setup_catalog.sh` only checks that it
+    exists and creates the schemas and the Volume. Using `workspace` was rejected to keep
+    the project isolated and the table names (`credit.gold.*`) as designed.
   - Not yet verified: Lakehouse Monitoring availability (week 7).
 - **Landing layout:** `/Volumes/credit/bronze/landing/freddie_mac/{origination,performance}/`.
   One folder per file type, so each Auto Loader stream reads files with a single schema.
@@ -89,7 +94,12 @@ Treatment (not implemented yet):
 
 ## Next steps
 
-1. Decide the catalog: create `credit` in the UI (Default Storage), or use `workspace`.
-2. Finish `scripts/setup_catalog.sh`, then `scripts/upload_samples.sh 2005 2006 2007 2019`.
-3. Add an empty serverless job to `resources/`, validate and deploy the bundle.
-4. Push the commits to GitHub.
+Week 2 (23–29 Nov) — Bronze with Auto Loader:
+
+1. Origination and performance schemas in `src/credit_engine/schemas/` from the July 2026
+   layout (31 and 35 columns), with tests.
+2. Bronze ingestion with Auto Loader from `landing/freddie_mac/{origination,performance}`,
+   adding `_ingest_ts`, `_source_file`, `_vintage`, inside the single Lakeflow pipeline
+   allowed by Free Edition.
+3. Script that drops one month of performance data at a time.
+4. Done when a new file appears in Bronze and re-running does not duplicate rows.
