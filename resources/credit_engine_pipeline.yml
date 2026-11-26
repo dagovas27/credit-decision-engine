@@ -1,0 +1,22 @@
+# The single Lakeflow Declarative Pipeline of the project. Free Edition allows one active
+# pipeline per type, so Bronze, Silver and Gold tables will all live here.
+#
+# Triggered mode (continuous: false): each update ingests the files that arrived since
+# the last one and stops, so serverless compute is only used while there is work.
+resources:
+  pipelines:
+    credit_engine_pipeline:
+      name: credit-engine-pipeline
+      serverless: true
+      continuous: false
+      channel: CURRENT
+      catalog: ${var.catalog}
+      schema: bronze
+      # Added to sys.path, so pipeline sources can `import credit_engine`.
+      root_path: ../src
+      libraries:
+        - file:
+            path: ../src/credit_engine/bronze/pipeline.py
+      configuration:
+        credit_engine.catalog: ${var.catalog}
+        credit_engine.landing_root: /Volumes/${var.catalog}/bronze/landing/freddie_mac
