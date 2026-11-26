@@ -2,8 +2,30 @@
 
 ## Current status
 
-- **Week:** 1 of 8.5 (16–22 Nov 2026) — Foundations, **completed**; week 2 starts 23 Nov
-- **Last updated:** 2026-11-17
+- **Week:** 2 of 8.5 (23–29 Nov 2026) — Bronze with Auto Loader, in progress
+- **Last updated:** 2026-11-25
+
+## Week 2 — Bronze with Auto Loader
+
+**Done when:** a new file appears in Bronze and re-running does not duplicate rows.
+
+| Task | Status |
+| --- | --- |
+| Origination (31) and performance (35) schemas in `src/credit_engine/schemas/`, with tests | Done — PR `feature/schemas` |
+| Bronze tables with Auto Loader inside the single Lakeflow pipeline | Pending |
+| Script that drops one month of performance data at a time | Pending |
+| Re-run check: new file ingested, no duplicate rows | Pending |
+| Databricks CLI re-authentication (token expired) | Pending — user |
+
+Decisions:
+
+- **Bronze keeps every column as `STRING`.** Bronze stores the files exactly as delivered;
+  typing happens in Silver, where a malformed value goes to quarantine instead of breaking
+  or silently nulling the ingestion.
+- **Column names are snake_case and defined in code** (`credit_engine.schemas`), with the
+  official layout name, type and length kept next to each one for traceability.
+- **Schema tests in two levels:** synthetic-line tests always run; tests against the
+  official layout and the local data files run only where the data exists and skip in CI.
 
 ## Week 1 — Foundations
 
