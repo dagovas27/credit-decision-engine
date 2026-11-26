@@ -1,0 +1,82 @@
+"""Monthly performance data file (35 columns), from file_layout_july_2026.xlsx."""
+
+from credit_engine.schemas.layout import Field, FileSchema
+
+_AMOUNT = "Numeric - 12,2"
+
+PERFORMANCE = FileSchema(
+    "performance",
+    (
+        Field(1, "loan_id", "Loan Identifier", "Alpha Numeric - PYYQnXXXXXXX", 12),
+        Field(2, "reporting_period", "Period", "Date", 6),
+        Field(3, "current_upb", "Current Actual UPB", _AMOUNT, 12),
+        Field(4, "delinquency_status", "Current Loan Delinquency Status", "Alpha Numeric", 3),
+        Field(5, "loan_age", "Loan Age", "Numeric", 3),
+        Field(
+            6,
+            "remaining_months_to_maturity",
+            "Remaining Months to Legal Maturity",
+            "Numeric",
+            3,
+        ),
+        Field(
+            7,
+            "defect_settlement_date",
+            "Underwriting Defect and Major Servicing Defect Settlement Date",
+            "Date",
+            6,
+        ),
+        Field(8, "modification_flag", "Modification Flag", "Alpha", 1),
+        Field(9, "zero_balance_code", "Zero Balance Code", "Numeric", 2),
+        Field(10, "zero_balance_date", "Zero Balance Effective Date", "Date", 6),
+        Field(11, "current_interest_rate", "Current Interest Rate", "Numeric - 8,3", 8),
+        Field(
+            12,
+            "current_non_interest_bearing_upb",
+            "Current Non-Interest Bearing UPB",
+            "Numeric",
+            12,
+        ),
+        Field(13, "ddlpi", "Due Date of Last Paid Installment (DDLPI)", "Date", 6),
+        Field(14, "mi_recoveries", "MI Recoveries", _AMOUNT, 12),
+        Field(15, "net_sales_proceeds", "Net Sales Proceeds", _AMOUNT, 14),
+        Field(16, "non_mi_recoveries", "Non MI Recoveries", _AMOUNT, 12),
+        Field(17, "total_expenses", "Total Expenses", _AMOUNT, 12),
+        Field(18, "legal_costs", "Legal Costs", _AMOUNT, 12),
+        Field(
+            19,
+            "maintenance_preservation_costs",
+            "Maintenance and Preservation Costs",
+            _AMOUNT,
+            12,
+        ),
+        Field(20, "taxes_insurance", "Taxes and Insurance", _AMOUNT, 12),
+        Field(21, "misc_expenses", "Miscellaneous Expenses", _AMOUNT, 12),
+        Field(22, "actual_loss", "Actual Loss", _AMOUNT, 12),
+        Field(23, "cumulative_modification_cost", "Cumulative Modification Costs", _AMOUNT, 12),
+        Field(24, "step_modification_flag", "Interest Rate Step Indicator", "Alpha", 1),
+        Field(25, "payment_deferral_flag", "Payment Deferral Flag", "Alpha", 1),
+        Field(26, "eltv", "Estimated Loan-to-Value (ELTV)", "Numeric", 4),
+        Field(27, "zero_balance_removal_upb", "Zero Balance Removal UPB", _AMOUNT, 12),
+        Field(28, "delinquent_accrued_interest", "Delinquent Accrued Interest", _AMOUNT, 12),
+        Field(29, "disaster_delinquency_flag", "Delinquency Due to Disaster", "Alpha", 1),
+        Field(30, "borrower_assistance_plan", "Borrower Assistance Plan", "Alpha", 1),
+        Field(
+            31,
+            "current_period_modification_cost",
+            "Current Period Modification Costs",
+            _AMOUNT,
+            12,
+        ),
+        Field(32, "current_interest_bearing_upb", "Current Interest Bearing UPB", _AMOUNT, 12),
+        Field(
+            33,
+            "mi_cancellation_flag",
+            "Mortgage Insurance Cancellation Indicator",
+            "Alpha",
+            1,
+        ),
+        Field(34, "servicer_name", "Servicer Name", "Alpha Numeric", 60),
+        Field(35, "bankruptcy_cramdown_costs", "Bankruptcy Cramdown Costs", _AMOUNT, 12),
+    ),
+)

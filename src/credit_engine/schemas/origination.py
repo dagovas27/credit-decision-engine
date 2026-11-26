@@ -1,0 +1,52 @@
+"""Origination data file (31 columns), from file_layout_july_2026.xlsx."""
+
+from credit_engine.schemas.layout import Field, FileSchema
+
+ORIGINATION = FileSchema(
+    "origination",
+    (
+        Field(1, "fico_score", "Classic FICO®", "Numeric", 4),
+        Field(2, "first_payment_date", "First Payment Date", "Date", 6),
+        Field(3, "first_time_homebuyer_flag", "First Time Homebuyer Indicator", "Alpha", 1),
+        Field(4, "maturity_date", "Maturity Date", "Date", 6),
+        Field(
+            5,
+            "msa_code",
+            "Metropolitan Statistical Area (MSA) Or Metropolitan Division",
+            "Numeric",
+            5,
+        ),
+        Field(6, "mi_pct", "Mortgage Insurance Percentage (MI %)", "Numeric", 3),
+        Field(7, "number_of_units", "Number of Units", "Numeric", 2),
+        Field(8, "occupancy_status", "Occupancy Status", "Alpha", 1),
+        Field(9, "orig_cltv", "Original Combined Loan-to-Value (CLTV)", "Numeric", 3),
+        Field(10, "orig_dti", "Original Debt-to-Income (DTI) Ratio", "Numeric", 3),
+        Field(11, "orig_upb", "Original UPB", "Numeric", 12),
+        Field(12, "orig_ltv", "Original Loan-to-Value (LTV)", "Numeric", 3),
+        Field(13, "orig_interest_rate", "Original Interest Rate", "Numeric - 6,3", 6),
+        Field(14, "channel", "Channel", "Alpha", 1),
+        Field(15, "prepayment_penalty_flag", "Prepayment Penalty Indicator", "Alpha", 1),
+        Field(16, "amortization_type", "Amortization Type", "Alpha", 5),
+        Field(17, "property_state", "Property State", "Alpha", 2),
+        Field(18, "property_type", "Property Type", "Alpha", 2),
+        Field(19, "postal_code", "Postal Code", "Alpha", 3),
+        Field(20, "loan_id", "Loan Identifier", "Alpha Numeric - PYYQnXXXXXXX", 12),
+        Field(21, "loan_purpose", "Loan Purpose", "Alpha", 1),
+        Field(22, "orig_loan_term", "Original Loan Term", "Numeric", 3),
+        Field(23, "number_of_borrowers", "Number of Borrowers", "Numeric", 2),
+        Field(24, "seller_name", "Seller Name", "Alpha Numeric", 60),
+        Field(25, "super_conforming_flag", "Super Conforming Flag", "Alpha", 1),
+        Field(
+            26,
+            "pre_harp_loan_id",
+            "Pre-HARP Loan Sequence Number",
+            "Alpha Numeric - PYYQnXXXXXXX",
+            12,
+        ),
+        Field(27, "special_eligibility_program", "Special Eligibility Program", "Alpha Numeric", 1),
+        Field(28, "harp_indicator", "HARP Indicator", "Alpha", 1),
+        Field(29, "property_valuation_method", "Property Valuation Method", "Numeric", 1),
+        Field(30, "interest_only_flag", "Interest Only (I/O) Indicator", "Alpha", 1),
+        Field(31, "vantage_score", "VantageScore® 4.0", "Numeric", 4),
+    ),
+)
