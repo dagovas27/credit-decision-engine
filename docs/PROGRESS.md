@@ -11,11 +11,22 @@
 
 | Task | Status |
 | --- | --- |
-| Origination (31) and performance (35) schemas in `src/credit_engine/schemas/`, with tests | Done — PR `feature/schemas` |
-| Bronze tables with Auto Loader inside the single Lakeflow pipeline | Pending |
+| Origination (31) and performance (35) schemas in `src/credit_engine/schemas/`, with tests | Done — PR #3 |
+| Bronze tables with Auto Loader inside the single Lakeflow pipeline | Done — PR `feature/bronze-autoloader`, deployed to dev |
 | Script that drops one month of performance data at a time | Pending |
-| Re-run check: new file ingested, no duplicate rows | Pending |
-| Databricks CLI re-authentication (token expired) | Pending — user |
+| Re-run check: no duplicate rows | Done — second update added 0 rows |
+| Re-run check: a new file appears in Bronze | Pending — needs the monthly drop script |
+
+Bronze verification (2026-11-26, vintages 2005, 2006, 2007, 2019):
+
+| Table | Rows | Matches local count | `_rescued_data` | Rows added by 2nd update |
+| --- | ---: | --- | ---: | ---: |
+| `credit.bronze.loan_origination_raw` | 200,000 | Yes (50,000 per file) | 0 | 0 |
+| `credit.bronze.loan_performance_raw` | 12,080,534 | Yes (every file) | 0 | 0 |
+
+`_vintage` equals the file year for every row; delinquency status, zero-balance codes,
+periods, FICO and loan ids all have the expected formats (no shifted columns). First update
+took about 1 minute of serverless compute.
 
 Decisions:
 
@@ -26,6 +37,16 @@ Decisions:
   official layout name, type and length kept next to each one for traceability.
 - **Schema tests in two levels:** synthetic-line tests always run; tests against the
   official layout and the local data files run only where the data exists and skip in CI.
+- **Bronze = streaming tables + Auto Loader, triggered mode.** The Auto Loader checkpoint
+  remembers ingested files, so re-runs add nothing; triggered updates stop when done and
+  save the Free Edition quota.
+- **`_vintage` comes from the loan id** (`PYYQn…`), not the file name, so it stays correct
+  for the monthly drop files.
+- **Quote handling is off** and unparseable values go to `_rescued_data`.
+- **Fully qualified table names** (`credit.bronze.*`) because Silver and Gold will live in
+  the same pipeline under other schemas.
+- **Spark code is thin:** testable logic is in `bronze/config.py`; `bronze/pipeline.py` runs
+  only in Databricks and is verified with SQL checks after each deploy.
 
 ## Week 1 — Foundations
 
